@@ -24,7 +24,7 @@ function checksExistsUserAccount(request, response, next) {
   next();
 }
 
-function checksExistsTodoId(request, response, next) {
+function checksExistsTodoById(request, response, next) {
   const { user } = request;
   const { id } = request.params;
   
@@ -82,7 +82,7 @@ app.post('/todos', checksExistsUserAccount, (request, response) => {
   return response.status(201).json(todo);
 });
 
-app.put('/todos/:id', checksExistsUserAccount, checksExistsTodoId, (request, response) => {
+app.put('/todos/:id', checksExistsUserAccount, checksExistsTodoById, (request, response) => {
   const { todo } = request;
   const { title, deadline } = request.body;
 
@@ -92,7 +92,7 @@ app.put('/todos/:id', checksExistsUserAccount, checksExistsTodoId, (request, res
   return response.status(200).json(todo);
 });
 
-app.patch('/todos/:id/done', checksExistsUserAccount, checksExistsTodoId, (request, response) => {
+app.patch('/todos/:id/done', checksExistsUserAccount, checksExistsTodoById, (request, response) => {
   const { todo } = request;
 
   todo.done = true;
@@ -100,7 +100,7 @@ app.patch('/todos/:id/done', checksExistsUserAccount, checksExistsTodoId, (reque
   return response.status(200).json(todo);
 });
 
-app.delete('/todos/:id', checksExistsUserAccount, checksExistsTodoId, (request, response) => {
+app.delete('/todos/:id', checksExistsUserAccount, checksExistsTodoById, (request, response) => {
   const { user, todo } = request;
 
   const todos = user.todos;
